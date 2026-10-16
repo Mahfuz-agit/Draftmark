@@ -6,6 +6,9 @@ on:
       - 'ddarftmark.zip'
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   extract-and-commit:
     runs-on: ubuntu-latest
