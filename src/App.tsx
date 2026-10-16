@@ -4,7 +4,7 @@ import {
   Sun, Moon, BookOpen, HardDrive, Printer, List
 } from 'lucide-react';
 import { DocumentItem, ViewMode, ThemeMode } from './types';
-import { db, createNewDocument, getAllDocuments, deleteDocument } from './db/database';
+import { createNewDocument, getAllDocuments, deleteDocument } from './db/database';
 import { useAutosave } from './hooks/useAutosave';
 import { useWordCount } from './hooks/useWordCount';
 import { CodeEditor } from './components/Editor/CodeEditor';
