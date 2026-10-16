@@ -1,0 +1,27 @@
+name: Extract Project ZIP
+
+on:
+  push:
+    paths:
+      - 'draftmark-project.zip'
+  workflow_dispatch:
+
+jobs:
+  extract-and-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Extract ZIP File
+        run: |
+          unzip -o draftmark-project.zip -d ./
+          rm draftmark-project.zip
+
+      - name: Commit and Push extracted files
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Unzip draftmark project files"
+          git push
