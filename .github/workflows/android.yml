@@ -41,12 +41,12 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
-      - name: Build APK with Gradle
+      - name: Build APK with Gradle (No Daemon Mode)
         run: |
           cd android
           chmod +x gradlew
-          rm -rf ~/.gradle/caches/   # <--- এই কমান্ডটি গ্লোবাল করাপ্টেড ক্যাশ ফাইল পুরোপুরি মুছে ফেলবে
-          ./gradlew assembleDebug
+          # `--no-daemon` এবং `--refresh-dependencies` দিয়ে ফাইল লক ও জার ক্রিয়েশন এরর চিরতরে দূর করা হলো
+          ./gradlew clean assembleDebug --no-daemon --refresh-dependencies
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
