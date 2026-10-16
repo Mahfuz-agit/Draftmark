@@ -24,7 +24,8 @@ jobs:
       - name: Install Dependencies
         run: |
           npm install
-          npm install @capacitor/core @capacitor/cli @capacitor/android
+          # সমস্যাযুক্ত লেটেস্ট ভার্সন বাদ দিয়ে সম্পূর্ণ স্টাবল Capacitor v5 ব্যবহার করা হলো
+          npm install @capacitor/core@5 @capacitor/cli@5 @capacitor/android@5
 
       - name: Build Web App
         run: npm run build
@@ -34,18 +35,6 @@ jobs:
           npx cap init Draftmark com.draftmark.app --web-dir dist
           npx cap add android
           npx cap sync android
-
-      - name: Fix Bouncy Castle Jar Cache Bug
-        run: |
-          # সমস্যাযুক্ত 1.79 ভার্সনটি ওভাররাইড করে স্টেবল 1.77 ভার্সন ফোর্স করা হলো
-          echo "" >> android/build.gradle
-          echo "allprojects {" >> android/build.gradle
-          echo "    configurations.all {" >> android/build.gradle
-          echo "        resolutionStrategy {" >> android/build.gradle
-          echo "            force 'org.bouncycastle:bcprov-jdk18on:1.77'" >> android/build.gradle
-          echo "        }" >> android/build.gradle
-          echo "    }" >> android/build.gradle
-          echo "}" >> android/build.gradle
 
       - name: Setup Java JDK
         uses: actions/setup-java@v4
