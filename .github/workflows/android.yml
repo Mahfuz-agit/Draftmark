@@ -35,18 +35,29 @@ jobs:
           npx cap add android
           npx cap sync android
 
+      - name: Fix Bouncy Castle Jar Cache Bug
+        run: |
+          # সমস্যাযুক্ত 1.79 ভার্সনটি ওভাররাইড করে স্টেবল 1.77 ভার্সন ফোর্স করা হলো
+          echo "" >> android/build.gradle
+          echo "allprojects {" >> android/build.gradle
+          echo "    configurations.all {" >> android/build.gradle
+          echo "        resolutionStrategy {" >> android/build.gradle
+          echo "            force 'org.bouncycastle:bcprov-jdk18on:1.77'" >> android/build.gradle
+          echo "        }" >> android/build.gradle
+          echo "    }" >> android/build.gradle
+          echo "}" >> android/build.gradle
+
       - name: Setup Java JDK
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: '17'
 
-      - name: Build APK with Gradle (No Daemon Mode)
+      - name: Build APK with Gradle
         run: |
           cd android
           chmod +x gradlew
-          # `--no-daemon` এবং `--refresh-dependencies` দিয়ে ফাইল লক ও জার ক্রিয়েশন এরর চিরতরে দূর করা হলো
-          ./gradlew clean assembleDebug --no-daemon --refresh-dependencies
+          ./gradlew clean assembleDebug --no-daemon
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
