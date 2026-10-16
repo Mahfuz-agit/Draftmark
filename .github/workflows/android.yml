@@ -45,7 +45,7 @@ jobs:
         run: |
           cd android
           chmod +x gradlew
-          ./gradlew clean  # <--- এই নতুন কমান্ডটি ক্যাশ ও করাপ্টেড জার ফাইল ফিক্স করে দেবে
+          rm -rf ~/.gradle/caches/   # <--- এই কমান্ডটি গ্লোবাল করাপ্টেড ক্যাশ ফাইল পুরোপুরি মুছে ফেলবে
           ./gradlew assembleDebug
 
       - name: Upload APK Artifact
