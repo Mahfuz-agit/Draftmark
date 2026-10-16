@@ -3,7 +3,7 @@ name: Extract Project ZIP
 on:
   push:
     paths:
-      - 'draftmark-project.zip'
+      - 'ddarftmark.zip'
   workflow_dispatch:
 
 jobs:
@@ -15,8 +15,8 @@ jobs:
 
       - name: Extract ZIP File
         run: |
-          unzip -o draftmark-project.zip -d ./
-          rm draftmark-project.zip
+          unzip -o ddarftmark.zip -d ./
+          rm ddarftmark.zip
 
       - name: Commit and Push extracted files
         run: |
